@@ -1,6 +1,6 @@
-# 🌟 SimCity-Sub0: Urban Utopia Simulation Game 🏙️
+# 🌟 SimCity-Sub-Zero: Urban Utopia Simulation Game 🏙️
 
-Welcome to SimCity-Sub0, where you take the reins of a dynamic city in this engaging Java-based simulation game! As a part of my Semester 3 coursework, I've embarked on a journey to create an immersive urban experience. 🚀
+Welcome to SimCity-Sub-Zero, where you take the reins of a dynamic city in this engaging Java-based simulation game! As a part of my Semester 3 coursework, I've embarked on a journey to create an immersive urban experience. 🚀
 
 ## Key Features:
 
@@ -11,13 +11,13 @@ Welcome to SimCity-Sub0, where you take the reins of a dynamic city in this enga
 
 ## Why SimCity-Sub0?
 
-- 🏗️ **Build Your Dream City:** From skyscrapers to parks, mold your cityscape into the vision of urban utopia you've always imagined.
-- 📈 **Learn While Playing:** SimCity-Sub0 is not just a game; it's an educational experience, providing insights into Java development, software design, and game mechanics.
-- 🌐 **Open Source Collaboration:** Contribute to the growth of SimCity-Sub0 by forking, suggesting improvements, or creating your own custom features. Let's build this city together!
+- 🏗️ **Build Your Dream City:** From skyscrapers to parks, mould your cityscape into the vision of urban utopia you've always imagined.
+- 📈 **Learn While Playing:** SimCity-Sub-Zero is not just a game; it's an educational experience, providing insights into Java development, software design, and game mechanics.
+- 🌐 **Open Source Collaboration:** Contribute to the growth of SimCity-Sub-Zero by forking, suggesting improvements, or creating your own custom features. Let's build this city together!
 
 ## Get Started:
 
-1. Clone the repository: `git clone https://github.com/YourUsername/SimCity-Sub0.git`
+1. Clone the repository: `git clone https://github.com/YourUsername/SimCity-Sub-Zero.git`
 2. Explore the codebase, experiment with game mechanics, and contribute to the evolution of SimCity-Sub0.
 
 Join the simulation revolution and let's build the ultimate city together! 🌆✨
