@@ -20,7 +20,11 @@ public class City {
         this.map = new Building[50][50];
     }
 
-    public void mangaeEconomy(){
+    public void manageEconomy(){
 
+    }
+    
+    public void ViewStats() {
+    	
     }
 }
