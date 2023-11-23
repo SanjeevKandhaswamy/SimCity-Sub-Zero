@@ -9,7 +9,7 @@ public class Building {
     private String type;
     private int level;
 
-    private Capital capital;
+    public Capital capital;
 
     // Constructor
     public Building(String id, Location location, String type, int level) {
@@ -37,7 +37,7 @@ public class Building {
         }
     }
 
-    public void upgradeBuilding(String building_id, int level){
+    public void UpgradeBuilding(String building_id, int level){
         int cost = upgradeCost(level);
         if (capital.checkSufficientCapital(cost)){
             capital.setCapital(capital.getCapital()-cost);
@@ -49,7 +49,7 @@ public class Building {
 
     }
 
-    public void destroyBuilding(String building_id) {
+    public void DestroyBuilding(String building_id) {
         this.location = null;
     }
 }
