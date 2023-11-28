@@ -1,10 +1,10 @@
 
 public class Map {
 
-	private char[][] GameMap;
+	private String[][] GameMap;
 	
 	public Map(int size) {
-		this.GameMap = new char[size][size];
+		this.GameMap = new String[size][size];
 		initializeMap();
 	}
 	
@@ -13,10 +13,11 @@ public class Map {
 		
 		for(int i = 0; i <= GameMap.length - 1; i++) {
 			for(int j = 0; j <= GameMap[i].length - 1; j++) {
-				GameMap[i][j] = ' '; // Initializing the map area to empty fields.
+				GameMap[i][j] = " "; // Initializing the map area to empty fields.
 			}
 		}
 	}
+	
 	
 	//Expand Map on user wish.
 	public void expandMap() {
@@ -37,14 +38,29 @@ public class Map {
 	
 	
 	//Method for checking the availability of area in the map
-	public boolean isAreaAvailable(int x, int y, int area) {
-		return false;
-		
-		
+	public boolean isAreaAvailable(int x, int y, int length, int breadth) {
+	    if (x < 0 || y < 0 || x + length > GameMap.length || y + breadth > GameMap[0].length) {
+	        return false;
+	    }
+
+	    // Check if the specified area is unoccupied
+	    for (int i = 0; i < length; i++) {
+	        for (int j = 0; j < breadth; j++) {
+	            if (GameMap[x + i][y + j] != " ") {
+	                // The area is already occupied
+	                return false;
+	            }
+	        }
+	    }
+
+	    // The area is available
+	    return true;
 	}
+		
+	
 	
 	// Places the built object in the game map.
-	public void placeObject(char[][] building, int x, int y) {
+	public void placeObject(String[][] building, int x, int y) {
 		for(int i = 0; i <= building.length - 1; i++) {
 			for(int j = 0; j <= building[i].length - 1; j++) {
 				if(x + i < GameMap.length && y + j < GameMap[0].length) {
@@ -59,7 +75,7 @@ public class Map {
 	public void destroyObject(int size, int x, int y) {
 		for(int i = 0; i <= size - 1; i++) {
 			for(int j = 0; j <= size - 1; j++) {
-				GameMap[x + i][y + j] = ' ';
+				GameMap[x + i][y + j] = " ";
 			}
 		}
 	}
