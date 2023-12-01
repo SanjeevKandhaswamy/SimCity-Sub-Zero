@@ -1,17 +1,20 @@
 package Services;
 import Util.Location;
+import Main.Map;
+
 import Buildings.ResidentialBuilding;
 
 public class Hospital extends Service {
     private int healthcareCapacity;
     private int boostHealthcareCapacity;
     private Location location;
+    private Map GameMap;
 
     public Hospital(String serviceID, int level, int healthcareCapacity, int x, int y) {
         super(serviceID, level, "Hospital");
         this.healthcareCapacity = healthcareCapacity;
-        this.boostHealthcareCapacity = 10; // Default boost value for healthcare capacity
-        setLocation(x, y);
+        this.boostHealthcareCapacity = 10; // Default boost value for health care capacity
+        this.location = new Location(x, y);
     }
 
     // Set location coordinates of the hospital
