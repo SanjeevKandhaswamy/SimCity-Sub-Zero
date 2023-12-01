@@ -3,8 +3,8 @@ import Util.Location;
 
 public class ResidentialBuilding extends Building{
 	
-	int Population;
-	int Happiness;
+	private int Population;
+	private int Happiness;
 	
     public ResidentialBuilding(String id, Location location, int level) {
         super(id, location, null, level);
@@ -22,5 +22,13 @@ public class ResidentialBuilding extends Building{
     	else {
     		System.err.println("Not Enough Capital Balance");
     	}
+    }
+    
+    public int getHappiness() {
+    	return this.Happiness;
+    }
+    
+    public int getPopulation() {
+    	return this.Population;
     }
 }

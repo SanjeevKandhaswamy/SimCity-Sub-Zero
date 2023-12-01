@@ -1,7 +1,7 @@
 package Services;
 import Economy.Capital;
 
-public class Service {
+public class Service{
     private String serviceID;
     private int level;
     private String type;
