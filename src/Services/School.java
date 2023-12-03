@@ -1,11 +1,14 @@
 package Services;
 import Util.Location;
+import Main.Map;
 
 public class School extends Service {
     private int capacity;
     private int boostPercentage;
     private Location location;
     private int no_students;
+    
+    private Map GameMap;
 
     public School(String serviceID, int level) {
         super(serviceID, level, "School");
@@ -32,23 +35,34 @@ public class School extends Service {
     @Override
     public String performUpgrade() {
     	if(RB.getPopulation() <= capacity*10) {
-    		return ("School Capcity is enough for current population count");
+    		return ("School capacity is enough for current population :)");
     	}
     	
-    	super.performUpgrade();
     	this.capacity += this.boostPercentage;
-    	buildSchool();
-    	return ("School Upgraded");
+    	int status = super.upgradeService();
+    	if(status == 0){
+    		return ("Not Enough Capital Balance!!");
+    	}
+    	else if(status == -1) {
+    		return ("Service Already at maximum level!!");
+    	}
+    	else if(buildSchool()) {
+    		RB.boostHappiness(this.boostPercentage);
+    		return ("School Upgraded Successfully :)");
+    	}
+    	else {
+    		return ("Selected area is already occupied by an object!!");
+    	}
     }
     
     
-    public String buildSchool() {
+    public boolean buildSchool() {
     	
     	int side = this.capacity / 10;
     	String[][] school = new String[side][side];
     	
     	if(!(GameMap.isAreaAvailable(location.getX(), location.getY(), side, side))) {
-    		return ("Selected Location is already occupied");
+    		return false;
     	}
     	
     	int sc = 0x0001F3EB;
@@ -70,16 +84,23 @@ public class School extends Service {
     		}
     	}
     	
-    	GameMap.placeObject(school, location.getX(), location.getY());
-    	return null;
+    	
+    	if(GameMap.placeObject(school, location.getX(), location.getY())) {
+        	return true;
+    	}
+    	return false;
     }
     
     
     
     @Override
-    public void performDestruction() {
-    	super.performDestruction();
-    	GameMap.destroyObject();
+    public boolean performDestruction() {
+    	this.level = 0;
+    	int side = this.capacity / 10;
+    	if(GameMap.destroyObject(side, side, location.getX(), location.getY())) {
+    		return true;
+    	}
+    	return false;
     }
 }
 

@@ -2,7 +2,6 @@ package Services;
 import Util.Location;
 import Main.Map;
 
-import Buildings.ResidentialBuilding;
 
 public class Hospital extends Service {
     private int healthcareCapacity;
@@ -23,25 +22,40 @@ public class Hospital extends Service {
     }
 
     @Override
-    public void performUpgrade() {
-        super.performUpgrade(); // Optional
+    public String performUpgrade() {
 
-        this.healthcareCapacity += boostHealthcareCapacity; // Customizable boost value for healthcare capacity
-        buildHospital(); // Updating the hospital after healthcare capacity is updated
+        this.healthcareCapacity += boostHealthcareCapacity; // Customizable boost value for health care capacity
+        int status = super.upgradeService();
+        if(status == 0) {
+        	return ("Not Enough Capital Balance!!");
+        }
+        else if(status == -1){
+        	return ("Service Already at maximum level");
+        }
+        else if(buildHospital()) {
+        	return ("Hospital Upgraded :)");// Updating the hospital after health care capacity is updated
+        }
+        else {
+        	return ("Selected area is already occupied by an object!!");
+        }
     }
+    
 
-    public void buildHospital() {
+    public boolean buildHospital() {
+    	
+        int side = (int) Math.sqrt(this.healthcareCapacity); // Calculating the length of the side of the hospital
+    	
         // Checks whether area is available
-        if (!(GameMap.isAreaAvailable(location.getX(), location.getY(), this.healthcareCapacity))) {
-            System.err.println("Selected Location is already occupied");
+        if (!(GameMap.isAreaAvailable(location.getX(), location.getY(), side, side))) {
+            return false;
         }
 
-        int side = (int) Math.sqrt(this.healthcareCapacity); // Calculating the length of the side of the hospital
-        char[][] hospital = new char[side][side]; // Declaring a new hospital using size
+
+        String[][] hospital = new String[side][side]; // Declaring a new hospital using size
 
         for (int i = 0; i <= hospital.length - 1; i++) {
             for (int j = 0; j <= hospital[i].length - 1; j++) {
-                hospital[i][j] = ' ';
+                hospital[i][j] = " ";
             }
         }
 
@@ -51,21 +65,30 @@ public class Hospital extends Service {
             for (int j = 1; j <= hospitalSize; j++) {
                 if (i == 1 || i == hospitalSize || j == 1 || j == hospitalSize) {
                     if (i < hospital.length && j < hospital[i].length) {
-                        hospital[i][j] = '+';
+                        hospital[i][j] = " +";
                     }
                 } else {
-                    hospital[i][j] = 'H';
+                    hospital[i][j] = "H";
                 }
             }
         }
 
-        GameMap.placeObject(hospital, location.getX(), location.getY());
+        if(GameMap.placeObject(hospital, location.getX(), location.getY())) {
+        	return true;
+        }
+        else {
+        	return false;
+        }
     }
+    
 
     @Override
-    public void performDestruction() {
-        super.performDestruction();
+    public boolean performDestruction() {
+        this.level = 0;
         int size = (int) Math.sqrt(healthcareCapacity);
-        GameMap.destroyObject(size, location.getX(), location.getY());
+        if(GameMap.destroyObject(size, size, location.getX(), location.getY())) {
+        	return true;
+        }
+        return false;
     }
 }
