@@ -4,7 +4,7 @@ import Buildings.ResidentialBuilding;
 
 public class Service{
     private String serviceID;
-    private int level;
+    protected int level;
     private String type;
     
     public Capital capital;
@@ -17,20 +17,26 @@ public class Service{
         this.type = type;
     }
 
-    public String upgradeService() {
+    public int upgradeService() {
             if(this.level < 5) {
+            	int upgradeCost = level * 1000;
+            	if(capital.getCapital() - upgradeCost < 0) {
+            		return 0;
+            	}
+            	capital.setCapital(capital.getCapital() - upgradeCost);
             	this.level++;
-            	return null;
+            	return 1;
             }
             else {
-            	return ("Service already at maximum level");
+            	return -1;
             }
     }
     
     
     // Overridden by the sub class functions.
     public String performUpgrade() {
-    	return ("Default upgrade function inside parent class"); // Optional.
+    	System.out.println("Default Upgrade Function inside Parent Function");
+    	return null; // Optional.
     }
     
     
@@ -42,13 +48,20 @@ public class Service{
     	}
     	else {
     		capital.setCapital(capital.getCapital() - destructionCost);
-    		performDestruction();
-    		return("Service Destroyed");
+    		if(performDestruction()) {
+    			return("Service Destroyed");
+    		}
+    		else {
+    			return ("Service Not Destroyed!! Retry :)");
+    		}
     	}
     }
     
+    
+    
     // This method will be overridden by the sub class methods.
-    public void performDestruction() {
+    public boolean performDestruction() {
     	this.level = 0;
+    	return true;
     }
 }

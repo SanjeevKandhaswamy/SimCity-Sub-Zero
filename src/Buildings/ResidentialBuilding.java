@@ -31,4 +31,8 @@ public class ResidentialBuilding extends Building{
     public int getPopulation() {
     	return this.Population;
     }
+    
+    public void boostHappiness(int boostpercent) {
+    	this.Happiness += boostpercent;
+    }
 }

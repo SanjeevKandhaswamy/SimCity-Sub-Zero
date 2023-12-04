@@ -61,7 +61,7 @@ public class Map {
 	
 	
 	// Places the built object in the game map.
-	public void placeObject(String[][] building, int x, int y) {
+	public boolean placeObject(String[][] building, int x, int y) {
 		for(int i = 0; i <= building.length - 1; i++) {
 			for(int j = 0; j <= building[i].length - 1; j++) {
 				if(x + i < GameMap.length && y + j < GameMap[0].length) {
@@ -69,15 +69,17 @@ public class Map {
 				}
 			}
 		}
+		return true;
 	}
 	
 	
 	// Updates the game map if any object is destroyed.
-	public void destroyObject(int size, int x, int y) {
-		for(int i = 0; i <= size - 1; i++) {
-			for(int j = 0; j <= size - 1; j++) {
+	public boolean destroyObject(int length, int breadth, int x, int y) {
+		for(int i = 0; i <= length - 1; i++) {
+			for(int j = 0; j <= breadth - 1; j++) {
 				GameMap[x + i][y + j] = " ";
 			}
 		}
+		return true;
 	}
 }
