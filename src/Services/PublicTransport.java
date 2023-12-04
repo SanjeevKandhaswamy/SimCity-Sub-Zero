@@ -1,6 +1,6 @@
 package Services;
 import Util.Location;
-import Buildings.ResidentialBuilding;
+import Main.Map;
 
 public class PublicTransport extends Service {
     private int capacity;
@@ -8,6 +8,9 @@ public class PublicTransport extends Service {
     private int length;
     private int breadth;
     private int boostValue;
+    private int boostPercent;
+    
+    private Map GameMap;
 
 
     public PublicTransport(String serviceID, int level, int x, int y, int length, int breadth) {
@@ -17,13 +20,13 @@ public class PublicTransport extends Service {
         this.length = length;
         this.breadth = breadth;
         this.boostValue = 10;
+        this.boostPercent = 10;
     }
     
-    public String buildTransport() {
+    public boolean buildTransport() {
     	
-    	int area = length * breadth;
     	if(!(GameMap.isAreaAvailable(location.getX(),location.getY(), length, breadth))) {
-    		return ("Selected Location is already occupied");
+    		return false;
     	}
     	
     	String[][] road = new String[length][breadth]; // Declaring a new 2d road array.
@@ -50,8 +53,10 @@ public class PublicTransport extends Service {
         }
     	
     	//Place the road in the game map.
-    	GameMap.placeObject(road, location.getX(), location.getY());
-    	return null;
+    	if(GameMap.placeObject(road, location.getX(), location.getY())) {
+    		return true;
+    	}
+    	return false;
     	
     }
     
@@ -59,22 +64,34 @@ public class PublicTransport extends Service {
     
     @Override
     public String performUpgrade() {
-    	super.performUpgrade();
     	if(capacity > RB.getPopulation() * 0.01) {
     		return ("Present Road transport is sufficient for the present population");
     	}
-    	
     	this.length += this.boostValue;
     	this.breadth += this.boostValue;
-    	buildTransport(); // Update the new road in the game map
-       	return ("Road Upgraded");
+    	int status = super.upgradeService();
+    	if(status == 0) {
+    		return ("Not Enough Capital Balance!!");
+    	}
+    	else if(status == -1){
+    		return ("Service already at maximum level :)");
+    	}
+    	else if(buildTransport()) {
+    		RB.boostHappiness(this.boostPercent);
+    		return ("Road Upgraded :)");
+    	}
+    	else {
+    		return ("Selected area is already occupied!!");
+    	}
     }
     
     
     @Override
-    public void performDestruction() {
-    	super.performDestruction();
-    	GameMap.destroyObject(this.length*this.breadth, location.getX(), location.getY());
+    public boolean performDestruction() {
+    	if(GameMap.destroyObject(this.length, this.breadth, location.getX(), location.getY())) {
+    		return true;
+    	}
+    	return false;
     }
 
    
