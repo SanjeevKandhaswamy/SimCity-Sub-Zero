@@ -1,5 +1,6 @@
 package Infrastructure;
 
+
 public class InfrastructureElement {
     private String infraID;
     private String type;
@@ -24,4 +25,11 @@ public class InfrastructureElement {
     public int getLevel() {
         return level;
     }
+
+    public void displayInfo() {
+        System.out.println("Infrastructure ID: " + infraID);
+        System.out.println("Type: " + type);
+        System.out.println("Level: " + level);
+    }
+
 }

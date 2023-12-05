@@ -8,6 +8,7 @@ public class PublicTransport extends Service {
     private int length;
     private int breadth;
     private int boostValue;
+    private Map GameMap;
 
 
     public PublicTransport(String serviceID, int level, int x, int y, int length, int breadth) {
