@@ -8,8 +8,10 @@ public class PublicTransport extends Service {
     private int length;
     private int breadth;
     private int boostValue;
+
     private int boostPercent;
     
+
     private Map GameMap;
 
 
