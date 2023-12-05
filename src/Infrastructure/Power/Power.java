@@ -17,21 +17,5 @@ public class Power extends InfrastructureElement {
         System.out.println("Power Demand: " + demand + " MW");
     }
 
-    // Function to build power supply.
-    public void buildPowerSupply() {
-        // Implement build logic
-        System.out.println("Building Power Supply for: " + getInfraID());
-    }
 
-    // Function to destroy power supply
-    public void destroyPowerSupply() {
-        // Implement destroy logic
-        System.out.println("Destroying Power Supply for: " + getInfraID());
-    }
-
-    // Function to check power demand
-    public void checkDemand() {
-        System.out.println("Checking Power Demand for: " + getInfraID());
-        // Implement demand check logic
-    }
 }
