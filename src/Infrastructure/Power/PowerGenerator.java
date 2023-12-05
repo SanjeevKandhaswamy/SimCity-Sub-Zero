@@ -1,12 +1,59 @@
 package Infrastructure.Power;
+import Buildings.*;
 import Infrastructure.InfrastructureElement;
+import Util.Location;
+import Main.Map;
+
 
 public class PowerGenerator extends Power {
     private int supply;
+    private Location location;
+    private Map GameMap;
+    private size;
 
-    public PowerGenerator(String infraID, int level, int demand, int supply) {
+    public PowerGenerator(String infraID, int level, int demand, int supply,int x,int y,int size) {
         super(infraID, level, demand);
-        this.supply = supply;
+        this.supply = supply; //Supply of the power generator
+        this.location.setLocation(x,y); //Building at that certain location
+        this.size = (size > 0) ? size : 50//DEFAULT_SIZE
+    }
+
+    public boolean buildPowerHouse() {
+
+        int side = (int) (this.size); // default
+        String[][] powerHouse = new String[side][side]; // Declaring new powerHouse using size
+
+        // Checks whether area is available
+        if(!(GameMap.isAreaAvailable(location.getX(),location.getY(), side, side))) {
+            return false;
+        }
+
+
+        for(int i = 0; i <= powerHouse.length - 1; i++) {
+            for(int j = 0; j <= powerHouse[i].length - 1; j++) {
+                powerHouse[i][j] = " ";
+            }
+        }
+
+        int electric = 0x00002301;
+        // Filling the powerHouse borders with '+' and the inside area with 'P'.
+        for (int i = 0; i <= side - 1; i++) {
+            for (int j = 0; j <= side - 1; j++) {
+                if (i == 0 || i == side - 1 || j == 0 || j == side - 1) {
+                    if (i < powerHouse.length && j < powerHouse[i].length) {
+                        powerHouse[i][j] = " +";
+                    }
+                } else {
+                    powerHouse[i][j] = Character.toString(electric);
+                }
+            }
+        }
+
+        if(GameMap.placeObject(powerHouse,location.getX(),location.getY())) {
+            return true;
+        }
+        return false;
+
     }
 
     // Method to check if the power supply is sufficient for a building
@@ -19,10 +66,10 @@ public class PowerGenerator extends Power {
     }
 
     // Method to expand power supply
-    public void expandPowerSupply() {
+    public void expandPowerSupply(int expandSupply) {
         // Logic to expand power supply
         System.out.println("Expanding Power Supply for " + getInfraID());
-        supply += 10; // For example, increase supply by 10 MW
+        supply = expandSupply + 10; // For example, increase supply by 10 MW
     }
 
     // Method to get power demand from a building

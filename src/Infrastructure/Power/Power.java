@@ -1,6 +1,6 @@
 package Infrastructure.Power;
-
 import Infrastructure.InfrastructureElement;
+
 
 public class Power extends InfrastructureElement {
     private int demand;

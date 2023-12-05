@@ -16,7 +16,7 @@ public class Park extends Service {
         this.boostPercentage = 10;   // Default boost percentage
         this.greenSpace = greenSpace; 
         this.boostgreenSpace = 5; // Default boost value for green space
-        setLocation(x,y);
+        this.location.setLocation(x,y);
     }
     
     // Set location coordinates of the park

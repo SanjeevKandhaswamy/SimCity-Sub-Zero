@@ -1,5 +1,6 @@
 package Infrastructure;
 
+
 public class InfrastructureElement {
     private String infraID;
     private String type;

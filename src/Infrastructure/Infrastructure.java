@@ -2,6 +2,7 @@ package Infrastructure;
 import java.util.List;
 import java.util.ArrayList;
 
+
 public class Infrastructure {
     private List<InfrastructureElement> infrastructureElements;
 
