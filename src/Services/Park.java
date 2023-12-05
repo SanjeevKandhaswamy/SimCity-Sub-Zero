@@ -1,12 +1,15 @@
 package Services;
 import Util.Location;
-import Buildings.ResidentialBuilding;
+import Main.Map;
+
 
 public class Park extends Service {
     private int boostPercentage;
     private int greenSpace;
     private int boostgreenSpace;
     private Location location;
+    
+    private Map GameMap;
 
     public Park(String serviceID, int level, int greenSpace, int x, int y) {
         super(serviceID, level, "Park");
@@ -29,56 +32,73 @@ public class Park extends Service {
     
     
     @Override
-	public  void performUpgrade() {
-    	super.performUpgrade(); //Optional
-    	
+	public String performUpgrade() {
     	this.greenSpace += boostgreenSpace; //Customizable boost value for green space
-    	BuildPark(); // Updating the park after green space is updated
+    	int status = super.upgradeService();
+    	if(status == 0) {
+    		return ("Not Enough Capital Balance!!");
+    	}
+    	else if(status == -1) {
+    		return ("Service already at maximum level..");
+    	}
+    	else if(buildPark()) {
+    		RB.boostHappiness(this.boostPercentage);
+    		return ("Park Upgraded :)");
+    	}
+    	else {
+    		return ("Selected area is already occupied!!");
+    	}
+		
     }
     
     
     
-    public void BuildPark() {
-    	
-    	// Checks whether area is available
-    	if(!(GameMap.isAreaAvailable(location.getX(),location.getY(), this.greenSpace))) {
-    		System.err.println("Selected Location is alreay occupied");
-    	}
-    	
+    public boolean buildPark() {
     	
     	int side = (int) Math.sqrt(this.greenSpace); // Calculating the length of the side of park
-    	char[][] park = new char[side][side]; // Declaring new park using size
+    	String[][] park = new String[side][side]; // Declaring new park using size
+    	
+    	// Checks whether area is available
+    	if(!(GameMap.isAreaAvailable(location.getX(),location.getY(), side, side))) {
+    		return false;
+    	}
+    	
     	
     	for(int i = 0; i <= park.length - 1; i++) {
     		for(int j = 0; j <= park[i].length - 1; j++) {
-    			park[i][j] = ' ';
+    			park[i][j] = " ";
     		}
     	}
     	
-    	
+    	int grass = 0x0001F33F;
     	// Filling the park borders with '+' and the inside area with 'P'.
-    	int parkSize = greenSpace / 10;  // Adjust for the park size
-        for (int i = 1; i <= parkSize; i++) {
-            for (int j = 1; j <= parkSize; j++) {
-                if (i == 1 || i == parkSize || j == 1 || j == parkSize) {
+        for (int i = 0; i <= side - 1; i++) {
+            for (int j = 0; j <= side - 1; j++) {
+                if (i == 0 || i == side - 1 || j == 0 || j == side - 1) {
                     if (i < park.length && j < park[i].length) {
-                        park[i][j] = '+';
+                        park[i][j] = " +";
                     }
                 } else {
-                    park[i][j] = 'P';
+                    park[i][j] = Character.toString(grass);
                 }
             }
         }
         
-        GameMap.placeObject(park,location.getX(),location.getY());        
+        if(GameMap.placeObject(park,location.getX(),location.getY())) {
+        	return true;
+        }
+        return false;
+        
     }
     
     
     @Override
-    public void performDestruction() {
-    	super.performDestruction();
-    	int size = (int) Math.sqrt(greenSpace)
-;    	GameMap.destroyObject(size,location.getX(),location.getY());
+    public boolean performDestruction() {
+    	int size = (int) Math.sqrt(greenSpace);
+    	if(GameMap.destroyObject(size, size, location.getX(),location.getY())) {
+    		return true;
+    	}
+    	return false;
     }
     
 }

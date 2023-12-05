@@ -1,12 +1,14 @@
 package Services;
 import Economy.Capital;
+import Buildings.ResidentialBuilding;
 
 public class Service{
     private String serviceID;
-    private int level;
+    protected int level;
     private String type;
     
     public Capital capital;
+    public ResidentialBuilding RB;
 
     // Constructor
     public Service(String serviceID, int level, String type) { 
@@ -15,37 +17,51 @@ public class Service{
         this.type = type;
     }
 
-    public void upgradeService() {
+    public int upgradeService() {
             if(this.level < 5) {
+            	int upgradeCost = level * 1000;
+            	if(capital.getCapital() - upgradeCost < 0) {
+            		return 0;
+            	}
+            	capital.setCapital(capital.getCapital() - upgradeCost);
             	this.level++;
-            	performUpgrade();
+            	return 1;
             }
             else {
-            	System.err.println("Service already at maximum level");
+            	return -1;
             }
     }
     
     
     // Overridden by the sub class functions.
-    public void performUpgrade() {
-    	System.out.println("Default upgrade function inside parent class"); // Optional.
+    public String performUpgrade() {
+    	System.out.println("Default Upgrade Function inside Parent Function");
+    	return null; // Optional.
     }
     
     
 
-    public void destroyService() {
+    public String destroyService() {
     	int destructionCost = level * 1000;
     	if(capital.getCapital() - destructionCost < 0) {
-    		System.err.println("Not Enough Capital Balance");
+    		return ("Not Enough Capital Balance");
     	}
     	else {
     		capital.setCapital(capital.getCapital() - destructionCost);
-    		performDestruction();
+    		if(performDestruction()) {
+    			return("Service Destroyed");
+    		}
+    		else {
+    			return ("Service Not Destroyed!! Retry :)");
+    		}
     	}
     }
     
+    
+    
     // This method will be overridden by the sub class methods.
-    public void performDestruction() {
+    public boolean performDestruction() {
     	this.level = 0;
+    	return true;
     }
 }
