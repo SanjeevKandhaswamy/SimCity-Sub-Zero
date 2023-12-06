@@ -1,13 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class GamePanel {
 	
 	private JPanel panel;
+	private Point coordinates;
 	
 	public GamePanel() {
 		this.panel = new JPanel();
+		this.coordinates = new Point(0,0); // Initialize the point object
 	}
 	
 	public void fillPanel(String[][] mapArray) {
@@ -25,6 +29,7 @@ public class GamePanel {
 		}
 	}
 	
+	
 	// Function to display the gamePanel.
 	public void displayPanel(String[][] mapArray) {
 		fillPanel(mapArray);
@@ -35,5 +40,16 @@ public class GamePanel {
         frame.setSize(500, 500);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+	}
+	
+	public Point MouseTracker() {
+        panel.addMouseListener(new MouseAdapter(){
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		// Get the coordinates from mouse listener and assigned those to point object
+        		coordinates.setLocation(e.getX(), e.getY()); 
+        	}
+        });
+        return coordinates;
 	}
 }
