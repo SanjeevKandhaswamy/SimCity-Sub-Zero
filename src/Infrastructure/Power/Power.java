@@ -1,13 +1,18 @@
 package Infrastructure.Power;
 import Infrastructure.InfrastructureElement;
-
+import Economy.Capital;
 
 public class Power extends InfrastructureElement {
     private int demand;
+    public Capital capital;
 
     public Power(String infraID, int level, int demand) {
         super(infraID, "Power", level);
         this.demand = demand;
+    }
+
+    public int getDemandt() {
+        return demand;
     }
 
     // Override displayInfo to include power-specific information.
@@ -17,5 +22,26 @@ public class Power extends InfrastructureElement {
         System.out.println("Power Demand: " + demand + " MW");
     }
 
+    // Function to upgrade the infrastructure
+    public void upgradeInfrastructure(InfrastructureElement element) {
+        super.upgradeInfrastructure();
+    }
+
+    // Function to destroy the infrastructure
+    public void destroyInfrastructure(InfrastructureElement element) {
+        super.destroyInfrastructure();
+    }
+
+    // Method to expand power supply
+    public void expandPowerSupply(int expandSupply) {
+        // Logic to expand power supply
+        this.demand+= expandSupply ; // For example, increase supply by expandSupply in MW
+    }
+//
+//    // Method to get power demand from a building
+//    private int getPowerDemand(Building building) {
+//        // Placeholder logic, replace it with your actual logic to get demand from the building
+//        return 20; // Example demand value
+//    }
 
 }

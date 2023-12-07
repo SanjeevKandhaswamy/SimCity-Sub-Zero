@@ -32,4 +32,39 @@ public class InfrastructureElement {
         System.out.println("Level: " + level);
     }
 
+    // Function to upgrade the infrastructure
+    public void upgradeInfrastructure(InfrastructureElement element) {
+        // This function will be overridden in sub-classes
+        if(this.level < 5) {
+            int upgradeCost = level * 1000;
+            if(capital.getCapital() - upgradeCost < 0) {
+                return 0;
+            }
+            capital.setCapital(capital.getCapital() - upgradeCost);
+            this.level++;
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }
+
+    // Function to destroy the infrastructure
+    public void destroyInfrastructure(InfrastructureElement element) {
+        // This function will be overridden in sub-classes
+        int destructionCost = level * 1000;
+        if(capital.getCapital() - destructionCost < 0) {
+            return ("Not Enough Capital Balance");
+        }
+        else {
+            capital.setCapital(capital.getCapital() - destructionCost);
+            if(performDestruction()) {
+                return("Infrastructure Destroyed");
+            }
+            else {
+                return ("Infrastructure Not Destroyed!! Retry :)");
+            }
+        }
+    }
+
 }

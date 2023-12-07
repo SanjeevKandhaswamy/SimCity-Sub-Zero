@@ -1,37 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-=======
->>>>>>> Stashed changes
-=======
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
->>>>>>> 690e630056052486eab7322126b4187b4b359b9a
 
 
 public class GamePanel {
 	
 	private JPanel panel;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
->>>>>>> 690e630056052486eab7322126b4187b4b359b9a
 	private Point coordinates;
 	
 	public GamePanel() {
 		this.panel = new JPanel();
 		this.coordinates = new Point(0,0); // Initialize the point object
-<<<<<<< HEAD
-=======
+
 	
 	public GamePanel() {
 		this.panel = new JPanel();
->>>>>>> Stashed changes
-=======
->>>>>>> 690e630056052486eab7322126b4187b4b359b9a
 	}
 	
 	public void fillPanel(String[][] mapArray) {
@@ -48,15 +32,7 @@ public class GamePanel {
 			}
 		}
 	}
-	
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-	
-=======
->>>>>>> Stashed changes
-=======
-	
->>>>>>> 690e630056052486eab7322126b4187b4b359b9a
+
 	// Function to display the gamePanel.
 	public void displayPanel(String[][] mapArray) {
 		fillPanel(mapArray);
@@ -68,10 +44,7 @@ public class GamePanel {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
->>>>>>> 690e630056052486eab7322126b4187b4b359b9a
+
 	
 	public Point MouseTracker() {
         panel.addMouseListener(new MouseAdapter(){
@@ -83,9 +56,5 @@ public class GamePanel {
         });
         return coordinates;
 	}
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> 690e630056052486eab7322126b4187b4b359b9a
+
 }
