@@ -9,7 +9,10 @@ public class PublicTransport extends Service {
     private int breadth;
     private int boostValue;
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+>>>>>>> 690e630056052486eab7322126b4187b4b359b9a
     private int boostPercent;
     
 
@@ -28,6 +31,7 @@ public class PublicTransport extends Service {
         this.boostPercent = 10;
     }
     
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     public boolean buildTransport() {
     	
@@ -35,11 +39,17 @@ public class PublicTransport extends Service {
     		return false;
 =======
     public String buildTransport() {
+=======
+    public boolean buildTransport() {
+>>>>>>> 690e630056052486eab7322126b4187b4b359b9a
     	
-    	int area = length * breadth;
     	if(!(GameMap.isAreaAvailable(location.getX(),location.getY(), length, breadth))) {
+<<<<<<< HEAD
     		return ("Selected Location is already occupied");
 >>>>>>> Stashed changes
+=======
+    		return false;
+>>>>>>> 690e630056052486eab7322126b4187b4b359b9a
     	}
     	
     	String[][] road = new String[length][breadth]; // Declaring a new 2d road array.
@@ -66,15 +76,21 @@ public class PublicTransport extends Service {
         }
     	
     	//Place the road in the game map.
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+>>>>>>> 690e630056052486eab7322126b4187b4b359b9a
     	if(GameMap.placeObject(road, location.getX(), location.getY())) {
     		return true;
     	}
     	return false;
+<<<<<<< HEAD
 =======
     	GameMap.placeObject(road, location.getX(), location.getY());
     	return null;
 >>>>>>> Stashed changes
+=======
+>>>>>>> 690e630056052486eab7322126b4187b4b359b9a
     	
     }
     
@@ -82,16 +98,22 @@ public class PublicTransport extends Service {
     
     @Override
     public String performUpgrade() {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
     	super.performUpgrade();
 >>>>>>> Stashed changes
+=======
+>>>>>>> 690e630056052486eab7322126b4187b4b359b9a
     	if(capacity > RB.getPopulation() * 0.01) {
     		return ("Present Road transport is sufficient for the present population");
     	}
     	this.length += this.boostValue;
     	this.breadth += this.boostValue;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+>>>>>>> 690e630056052486eab7322126b4187b4b359b9a
     	int status = super.upgradeService();
     	if(status == 0) {
     		return ("Not Enough Capital Balance!!");
@@ -106,10 +128,13 @@ public class PublicTransport extends Service {
     	else {
     		return ("Selected area is already occupied!!");
     	}
+<<<<<<< HEAD
 =======
     	buildTransport(); // Update the new road in the game map
        	return ("Road Upgraded");
 >>>>>>> Stashed changes
+=======
+>>>>>>> 690e630056052486eab7322126b4187b4b359b9a
     }
     
     
