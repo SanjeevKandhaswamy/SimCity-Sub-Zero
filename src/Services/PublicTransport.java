@@ -1,5 +1,6 @@
 package Services;
 import Util.Location;
+import Main.Map;
 import Buildings.ResidentialBuilding;
 
 public class PublicTransport extends Service {
