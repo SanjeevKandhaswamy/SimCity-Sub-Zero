@@ -6,18 +6,21 @@ import Main.Map;
 
 
 public class PowerGenerator extends Power {
+    private static int noOfGenerators = 0;
     private int supply; // in kW
     private Location location;
     private Map GameMap;
     private size;
 
-    public PowerGenerator(int supply,int x,int y,int size) {
+    public PowerGenerator(String infraID, int level, int demand,int supply,int x,int y,int size) {
+        super(infraID, level, demand);
         this.location.setLocation(x,y); //Building at that certain location
         this.supply = (supply > 0) ? supply : 10000; //Supply of the power generator
         this.size = (size > 0) ? size : 50; //DEFAULT_SIZE of Power House
+        PowerGenerator.noOfGenerators++;
     }
 
-    public boolean buildPowerHouse() {
+    public boolean buildGenerator() {
 
         int side = (int) (this.size); // default
         String[][] powerHouse = new String[side][side]; // Declaring new powerHouse using size
@@ -80,7 +83,7 @@ public class PowerGenerator extends Power {
     }
 
     // Function to build power supply.
-    public void buildPowerSupply(int size,int supply) {
+    public void upgradeGenerator(int size,int supply) {
         this.size += (size > 0) ? size : 20; //increase size of 20 default
         this.supply += (supply > 0) ? supply : 4000; //increase supply of 4000 kW default
         int status = super.upgradeInfrastructure();
@@ -90,7 +93,7 @@ public class PowerGenerator extends Power {
         else if(status == -1) {
             return ("Power Infrastructure is already at maximum level..");
         }
-        else if(buildPowerHouse()) {
+        else if(buildGenerator()) {
             return ("Power House Upgraded :)");
         }
         else {
@@ -100,9 +103,9 @@ public class PowerGenerator extends Power {
     }
 
     // Function to destroy power supply
-    public void destroyPowerSupply() {
+    public void destroyGenerator() {
         int side = (int) (this.size); // default
-        if(GameMap.destroyObject(size, size, location.getX(),location.getY())) {
+        if(GameMap.destroyObject(side, side, location.getX(),location.getY())) {
             return true;
         }
         return false;

@@ -3,15 +3,14 @@ import Infrastructure.InfrastructureElement;
 import Economy.Capital;
 
 public class Power extends InfrastructureElement {
-    private int demand;
-    public Capital capital;
+    private int demand = 40000; // Default customizable value
 
     public Power(String infraID, int level, int demand) {
         super(infraID, "Power", level);
         this.demand = demand;
     }
 
-    public int getDemandt() {
+    public int getDemand() {
         return demand;
     }
 

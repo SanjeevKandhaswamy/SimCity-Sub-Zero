@@ -6,6 +6,8 @@ public class InfrastructureElement {
     private String type;
     private int level;
 
+    public Capital capital;
+
     public InfrastructureElement(String infraID, String type, int level) {
         this.infraID = infraID;
         this.type = type;
