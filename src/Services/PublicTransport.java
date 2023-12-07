@@ -1,6 +1,10 @@
 package Services;
 import Util.Location;
 import Main.Map;
+<<<<<<< HEAD
+import Buildings.ResidentialBuilding;
+=======
+>>>>>>> 690e630056052486eab7322126b4187b4b359b9a
 
 public class PublicTransport extends Service {
     private int capacity;
