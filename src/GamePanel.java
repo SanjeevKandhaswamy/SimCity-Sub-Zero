@@ -12,6 +12,10 @@ public class GamePanel {
 	public GamePanel() {
 		this.panel = new JPanel();
 		this.coordinates = new Point(0,0); // Initialize the point object
+
+	
+	public GamePanel() {
+		this.panel = new JPanel();
 	}
 	
 	public void fillPanel(String[][] mapArray) {
@@ -28,8 +32,7 @@ public class GamePanel {
 			}
 		}
 	}
-	
-	
+
 	// Function to display the gamePanel.
 	public void displayPanel(String[][] mapArray) {
 		fillPanel(mapArray);
@@ -41,6 +44,7 @@ public class GamePanel {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
+
 	
 	public Point MouseTracker() {
         panel.addMouseListener(new MouseAdapter(){
@@ -52,4 +56,5 @@ public class GamePanel {
         });
         return coordinates;
 	}
+
 }
