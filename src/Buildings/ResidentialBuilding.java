@@ -11,7 +11,7 @@ public class ResidentialBuilding extends Building{
     private String id;
     private int level;
     private double boostpercentage;
-	
+
     public ResidentialBuilding(String id, Location location, int level, Map gameMap) {
         this.id = id;
         this.location = location;
