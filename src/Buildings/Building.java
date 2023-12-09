@@ -3,20 +3,17 @@ import Util.Location;
 import Economy.Capital;
 
 
-public class Building {
-    private String building_id;
+public abstract class Building {
+    private String id;
     private Location location;
     private String type;
     private int level;
 
     public Capital capital;
 
-    // Constructor
-    public Building(String id, Location location, String type, int level) {
-        this.building_id = id;
-        this.location = location;
-        this.type = type;
-        this.level = level;
+    // Overridden by the sub class functions.
+    public Boolean buildBuilding(){
+		return null;
     }
 
     public int upgradeCost(int level){
@@ -46,10 +43,43 @@ public class Building {
         else{
             System.err.println("Not enough Money!");
         }
-
     }
 
     public void DestroyBuilding(String building_id) {
         this.location = null;
+    }
+
+    // Getter and setter methods
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

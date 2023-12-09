@@ -1,8 +1,10 @@
 package Main;
+import Main.GamePanel;
 
 public class Map {
 
 	private String[][] GameMap;
+	private GamePanel panel;
 	
 	public Map(int size) {
 		this.GameMap = new String[size][size];
@@ -29,13 +31,25 @@ public class Map {
 	
 	//Displays the map in the gaming terminal
 	public void DisplayMap() {
-		for(int i = 0; i <= GameMap.length - 1; i++) {
-			for(int j = 0; j <= GameMap[i].length - 1; j++) {
-				System.out.print(GameMap[i][j]);
+		int cellWidth = 3; // Adjust this value based on your preference
+		for (int i = 0; i <= GameMap.length - 1; i++) {
+			for (int j = 0; j <= GameMap[i].length - 1; j++) {
+				// Print the content of the cell with a fixed width
+				System.out.printf("%-" + cellWidth + "s", GameMap[i][j]);
+				// Print a vertical line after each cell
+				System.out.print("|");
 			}
+			// Move to the next line after each row
 			System.out.println();
+			// Print a horizontal line between each row
+			for (int k = 0; k < GameMap[0].length * (cellWidth + 1) - 1; k++) {
+				System.out.print("-");
+			}
+			System.out.println(); // Move to the next line after the horizontal line
 		}
 	}
+	
+	
 	
 	
 	//Method for checking the availability of area in the map
@@ -62,15 +76,21 @@ public class Map {
 	
 	// Places the built object in the game map.
 	public boolean placeObject(String[][] building, int x, int y) {
-		for(int i = 0; i <= building.length - 1; i++) {
-			for(int j = 0; j <= building[i].length - 1; j++) {
-				if(x + i < GameMap.length && y + j < GameMap[0].length) {
-					GameMap[x + i][y + j] = building[i][j];
+		for (int i = 0; i < building.length; i++) {
+			for (int j = 0; j < building[i].length; j++) {
+				if (x + i < GameMap.length && y + j < GameMap[0].length) {
+					if (GameMap[x + i][y + j].equals(" ")) {
+						GameMap[x + i][y + j] = building[i][j];
+					} else {
+						// If the area is already occupied, return false
+						return false;
+					}
 				}
 			}
 		}
 		return true;
 	}
+
 	
 	
 	// Updates the game map if any object is destroyed.
@@ -81,5 +101,9 @@ public class Map {
 			}
 		}
 		return true;
+	}
+
+	public String[][] getMap(){
+		return this.GameMap;
 	}
 }
