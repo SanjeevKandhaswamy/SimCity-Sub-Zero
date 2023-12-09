@@ -32,9 +32,9 @@ public class App {
             Point lastClicked = gamePanel.getLastClickedCoordinates();
             System.out.println("Last clicked coordinates: " + lastClicked);
 
-            // Check if the last clicked coordinates are (0, 0)
+            // Check if the last clicked coordinates are (9, 9)
             if (lastClicked.equals(new Point(9, 9))) {
-                System.out.println("Exiting the loop. Coordinates (0, 0) clicked.");
+                System.out.println("Exiting the loop. Coordinates (9, 9) clicked.");
                 break;
             }
 
@@ -42,7 +42,6 @@ public class App {
             Point initialPoint = points.getPoint(lastClicked);
             System.out.println("Initial Point for last clicked: " + initialPoint);
 
-            // Add a small delay to avoid consuming too much CPU
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
