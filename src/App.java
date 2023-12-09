@@ -1,7 +1,6 @@
+import java.awt.Point;
 import Buildings.*;
-import Util.Location;
-import Util.RandomMap;
-import Util.Points;
+import Util.*;
 import Main.GamePanel;
 import Main.Map;
 import Services.Park;
@@ -16,6 +15,11 @@ public class App {
         Park p1 = new Park("P1", 1, 25, l1, cityMap);
         p1.buildPark();
 
+        Points points = cityMap.getPoints(); // Get the Points instance from the cityMap
+        Point startingPoint = points.getPoint(new Point(2, 2));
+        System.out.println("Starting Point: " + startingPoint);
+
+
         // Update the map based on changes made in the buildPark method
         map = cityMap.getMap();
         cityMap.DisplayMap();
@@ -25,4 +29,3 @@ public class App {
         gamePanel.displayPanel();
     }
 }
-
