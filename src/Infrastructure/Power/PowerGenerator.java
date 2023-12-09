@@ -6,19 +6,21 @@ import Main.Map;
 
 
 public class PowerGenerator extends Power {
-    private int supply;
+    private static int noOfGenerators = 0;
+    private int supply; // in kW
     private Location location;
     private Map GameMap;
-    private int size;
+    private size;
 
-    public PowerGenerator(String infraID, int level, int demand, int supply,int x,int y,int size) {
+    public PowerGenerator(String infraID, int level, int demand,int supply,int x,int y,int size) {
         super(infraID, level, demand);
-        this.supply = supply; //Supply of the power generator
         this.location.setLocation(x,y); //Building at that certain location
-        this.size = (size > 0) ? size : 50; //DEFAULT_SIZE
+        this.supply = (supply > 0) ? supply : 10000; //Supply of the power generator
+        this.size = (size > 0) ? size : 50; //DEFAULT_SIZE of Power House
+        PowerGenerator.noOfGenerators++;
     }
 
-    public boolean buildPowerHouse() {
+    public boolean buildGenerator() {
 
         int side = (int) (this.size); // default
         String[][] powerHouse = new String[side][side]; // Declaring new powerHouse using size
@@ -56,57 +58,59 @@ public class PowerGenerator extends Power {
 
     }
 
-    // Method to check if the power supply is sufficient for a building
-    public boolean isSupplySufficient(Building building) {
-        if ("Power".equals(building.getType())) {
-            int demand = getPowerDemand(building); // Assume a method to get demand from the building
-            return supply >= demand;
-        }
-        return false;
-    }
+//    // Method to check if the power supply is sufficient for a building
+//    public boolean isSupplySufficient(Building building) {
+//        if ("Power".equals(building.getType())) {
+//            int demand = getPowerDemand(building); // Assume a method to get demand from the building
+//            return supply >= demand;
+//        }
+//        return false;
+//    }
 
-    // Method to expand power supply
-    public void expandPowerSupply(int expandSupply) {
-        // Logic to expand power supply
-        System.out.println("Expanding Power Supply for " + getInfraID());
-        supply = expandSupply + 10; // For example, increase supply by 10 MW
-    }
 
-    // Method to get power demand from a building
-    private int getPowerDemand(Building building) {
-        // Placeholder logic, replace it with your actual logic to get demand from the building
-        return 20; // Example demand value
-    }
 
     // Override displayInfo to include generator-specific information
     @Override
     public void displayInfo() {
         super.displayInfo();
-        System.out.println("Power Supply: " + supply + " MW");
+        System.out.println("Total Power Supply Storage: " + this.supply + " MW");
     }
 
     // Function to update power supply
     public void updateSupply(int newSupply) {
         this.supply = newSupply;
-        System.out.println("Power Supply Updated to: " + newSupply + " MW");
+        System.out.println("Power Supply Storage Updated to: " + newSupply + " MW");
     }
 
     // Function to build power supply.
-    public void buildPowerSupply() {
-        // Implement build logic
-        System.out.println("Building Power Supply for: " + getInfraID());
+    public void upgradeGenerator(int size,int supply) {
+        this.size += (size > 0) ? size : 20; //increase size of 20 default
+        this.supply += (supply > 0) ? supply : 4000; //increase supply of 4000 kW default
+        int status = super.upgradeInfrastructure();
+        if(status == 0) {
+            return ("Not Enough Capital Balance!!");
+        }
+        else if(status == -1) {
+            return ("Power Infrastructure is already at maximum level..");
+        }
+        else if(buildGenerator()) {
+            return ("Power House Upgraded :)");
+        }
+        else {
+            return ("Selected area is already occupied!!");
+        }
+
     }
 
     // Function to destroy power supply
-    public void destroyPowerSupply() {
-        // Implement destroy logic
-        System.out.println("Destroying Power Supply for: " + getInfraID());
+    public void destroyGenerator() {
+        int side = (int) (this.size); // default
+        if(GameMap.destroyObject(side, side, location.getX(),location.getY())) {
+            return true;
+        }
+        return false;
+
     }
 
-    // Function to check power demand
-    public void checkDemand() {
-        System.out.println("Checking Power Demand for: " + getInfraID());
-        // Implement demand check logic
-    }
 
 }
