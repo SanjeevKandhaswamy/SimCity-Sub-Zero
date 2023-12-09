@@ -48,6 +48,7 @@ public class Map {
 			System.out.println(); // Move to the next line after the horizontal line
 		}
 	}
+
 	
 	
 	
@@ -90,6 +91,7 @@ public class Map {
 		}
 		return true;
 	}
+
 
 	
 	

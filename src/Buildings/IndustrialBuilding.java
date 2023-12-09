@@ -18,26 +18,32 @@ public class IndustrialBuilding extends Building{
     
     @Override
     public Boolean buildBuilding() {
-      int side = 1;
+    int side = 1;
 
-      // Checks whether the area is available
-      if (!(GameMap.isAreaAvailable(location.getX(), location.getY(), side, side))) {
-          return false;
-      }
+    // Checks whether the area is available
+    if (!(GameMap.isAreaAvailable(location.getX(), location.getY(), side, side))) {
+        return false;
+    }
 
-      String[][] residentialBuilding = new String[side][side]; // Declaring a new residential building using size
+    String[][] industrialBuilding = new String[side][side]; // Declaring a new industrial building using size
 
-      for (int i = 0; i < residentialBuilding.length; i++) {
-          for (int j = 0; j < residentialBuilding[i].length; j++) {
-              residentialBuilding[i][j] = "L";
-          }
-      }
+    for (int i = 0; i < industrialBuilding.length; i++) {
+        for (int j = 0; j < industrialBuilding[i].length; j++) {
+            industrialBuilding[i][j] = "L";
+        }
+    }
 
-      if (GameMap.placeObject(residentialBuilding, location.getX(), location.getY())) {
-          return true;
-      } else {
-          return false;
-      }
+    if (GameMap.placeObject(industrialBuilding, location.getX(), location.getY())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+    @Override
+    public String getType() {
+        return "I";
     }
 
 }

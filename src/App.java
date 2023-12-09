@@ -1,37 +1,32 @@
-import Main.GamePanel;
-import Main.Map;
+import Buildings.*;
 import Util.RandomMap;
-import Util.Location;
-import Buildings.Building;
+import Main.GamePanel;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello");
+        int mapSize = 10; //Map size
+        Building[][] randomMap = RandomMap.generateRandomMap(mapSize);
 
-        // Create a Map with a size s
-        int s = 10;
-        Map citymap = new Map(s);
-        citymap.initializeMap();
+        // Create a GamePanel with the random map
+        GamePanel gamePanel = new GamePanel(convertToStringArray(randomMap));
+        
+        // Display the GamePanel
+        gamePanel.displayPanel();
+        
+        // Access the coordinates
+        System.out.println("Clicked at coordinates: " + gamePanel.getCoordinates());
+    }
 
-        GamePanel gamePanel = new GamePanel(citymap.getMap());
+    // Helper method to convert Building[][] to String[][]
+    private static String[][] convertToStringArray(Building[][] buildingMap) {
+        String[][] stringArray = new String[buildingMap.length][buildingMap[0].length];
 
-        // Generate a random map and populate cityMap using placeObject
-        Building[][] randomMap = RandomMap.generateRandomMap(s);
-        for (int i = 0; i < randomMap.length; i++) {
-            for (int j = 0; j < randomMap[i].length; j++) {
-                Building building = randomMap[i][j];
-                if (building != null) {
-                    // Check if the area is available before placing the object
-                    if (citymap.isAreaAvailable(i, j, 1, 1)) {
-                        citymap.placeObject(new String[][]{{building.getType()}}, i, j);
-                    }
-                }
+        for (int i = 0; i < buildingMap.length; i++) {
+            for (int j = 0; j < buildingMap[i].length; j++) {
+                Building building = buildingMap[i][j];
+                stringArray[i][j] = (building != null) ? building.getType() : "null";
             }
         }
-
-        // Display the map
-        citymap.DisplayMap();
-        gamePanel.displayPanel();
-        System.out.println(gamePanel.getCoordinates());
+        return stringArray;
     }
 }

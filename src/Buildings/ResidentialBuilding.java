@@ -67,4 +67,9 @@ public class ResidentialBuilding extends Building{
     public void boostHappiness(double boostpercent) {
     	this.Happiness += boostpercent;
     }
+
+    @Override
+    public String getType() {
+        return "R";
+    }
 }

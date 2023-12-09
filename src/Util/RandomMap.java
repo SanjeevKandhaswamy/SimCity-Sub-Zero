@@ -1,10 +1,8 @@
 package Util;
 
+import Buildings.*;
+
 import java.util.Random;
-import Buildings.Building;
-import Buildings.ResidentialBuilding;
-import Buildings.CommercialBuilding;
-import Buildings.IndustrialBuilding;
 
 public class RandomMap {
 
@@ -20,7 +18,6 @@ public class RandomMap {
                 randomMap[i][j] = randomBuilding;
             }
         }
-
         return randomMap;
     }
 

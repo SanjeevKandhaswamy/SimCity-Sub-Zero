@@ -17,29 +17,29 @@ public class CommercialBuilding extends Building{
       this.GameMap = gameMap;
   }
     
-    @Override
-    public Boolean buildBuilding() {
+  @Override
+  public Boolean buildBuilding() {
       int side = 1;
-
+  
       // Checks whether the area is available
       if (!(GameMap.isAreaAvailable(location.getX(), location.getY(), side, side))) {
           return false;
       }
-
-      String[][] residentialBuilding = new String[side][side]; // Declaring a new residential building using size
-
-      for (int i = 0; i < residentialBuilding.length; i++) {
-          for (int j = 0; j < residentialBuilding[i].length; j++) {
-              residentialBuilding[i][j] = "C";
+  
+      String[][] commercialBuilding = new String[side][side]; // Declaring a new commercial building using size
+  
+      for (int i = 0; i < commercialBuilding.length; i++) {
+          for (int j = 0; j < commercialBuilding[i].length; j++) {
+              commercialBuilding[i][j] = "C";
           }
       }
-
-      if (GameMap.placeObject(residentialBuilding, location.getX(), location.getY())) {
+  
+      if (GameMap.placeObject(commercialBuilding, location.getX(), location.getY())) {
           return true;
       } else {
           return false;
       }
-    }
+  }
     
     public void IncreaseIncome() {
     	
@@ -47,5 +47,10 @@ public class CommercialBuilding extends Building{
     
     public void UpdateCapital() {
     	
+    }
+
+    @Override
+    public String getType() {
+        return "C";
     }
 }
