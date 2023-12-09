@@ -24,17 +24,5 @@ public class Infrastructure {
         }
     }
 
-    // Function to upgrade the infrastructure
-    public void upgradeInfrastructure(InfrastructureElement element) {
-        // Implement upgrade logic
-        System.out.println("Upgrading infrastructure: " + element.getInfraID());
-        System.out.println("Upgrade logic goes here.");
-    }
 
-    // Function to destroy the infrastructure
-    public void destroyInfrastructure(InfrastructureElement element) {
-        // Implement destroy logic
-        System.out.println("Destroying infrastructure: " + element.getInfraID());
-        System.out.println("Destroy logic goes here.");
-    }
 }
