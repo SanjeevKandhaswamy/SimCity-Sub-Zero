@@ -1,6 +1,12 @@
 {
     "configurations": [
-        
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "Sim-City Similation Game"
+        },
         {
             "type": "java",
             "name": "Run with AppMap",
