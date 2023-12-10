@@ -1,16 +1,16 @@
 package Buildings;
-import Main.Map;
+import Main.GameMap;
 import Util.Location;
 
 public class CommercialBuilding extends Building{
 	
 	private int income;
-  private Map GameMap;
+  private GameMap GameMap;
   private Location location;
   private String id;
   private int level;
 	
-  public CommercialBuilding(String id, Location location, int level, Map gameMap) {
+  public CommercialBuilding(String id, Location location, int level, GameMap gameMap) {
       this.id = id;
       this.location = location;
       this.level = level;
@@ -19,20 +19,16 @@ public class CommercialBuilding extends Building{
     
   @Override
   public Boolean buildBuilding() {
-      int side = 1;
   
       // Checks whether the area is available
-      if (!(GameMap.isAreaAvailable(location.getX(), location.getY(), side, side))) {
+      if (!(GameMap.isAreaAvailable(location.getX(), location.getY(), 1, 1))) {
           return false;
       }
   
-      String[][] commercialBuilding = new String[side][side]; // Declaring a new commercial building using size
-  
-      for (int i = 0; i < commercialBuilding.length; i++) {
-          for (int j = 0; j < commercialBuilding[i].length; j++) {
-              commercialBuilding[i][j] = "C";
-          }
-      }
+      String[][] commercialBuilding = new String[1][1]; // Declaring a new commercial building using size
+
+      commercialBuilding[0][0] = "C";
+
   
       if (GameMap.placeObject(commercialBuilding, location.getX(), location.getY())) {
           return true;

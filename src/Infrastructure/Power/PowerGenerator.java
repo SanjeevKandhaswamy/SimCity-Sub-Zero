@@ -2,14 +2,14 @@ package Infrastructure.Power;
 import Buildings.*;
 import Infrastructure.InfrastructureElement;
 import Util.Location;
-import Main.Map;
+import Main.GameMap;
 
 
 public class PowerGenerator extends Power {
     private static int noOfGenerators = 0;
     private int supply; // in kW
     private Location location;
-    private Map GameMap;
+    private GameMap GameMap;
     private size;
 
     public PowerGenerator(String infraID, int level, int demand,int supply,int x,int y,int size) {
@@ -83,10 +83,10 @@ public class PowerGenerator extends Power {
     }
 
     // Function to build power supply.
-    public void upgradeGenerator(int size,int supply) {
+    public String upgradeGenerator(int size,int supply) {
         this.size += (size > 0) ? size : 20; //increase size of 20 default
         this.supply += (supply > 0) ? supply : 4000; //increase supply of 4000 kW default
-        int status = super.upgradeInfrastructure();
+        int status = super.upgradeInfrastructure(null);
         if(status == 0) {
             return ("Not Enough Capital Balance!!");
         }

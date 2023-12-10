@@ -1,18 +1,18 @@
 package Buildings;
 import Util.Location;
-import Main.Map;
+import Main.GameMap;
 
 public class ResidentialBuilding extends Building{
 	
 	private int Population;
 	private int Happiness;
-    private Map GameMap;
+    private GameMap GameMap;
     private Location location;
     private String id;
     private int level;
     private double boostpercentage;
 
-    public ResidentialBuilding(String id, Location location, int level, Map gameMap) {
+    public ResidentialBuilding(String id, Location location, int level, GameMap gameMap) {
         this.id = id;
         this.location = location;
         this.level = level;

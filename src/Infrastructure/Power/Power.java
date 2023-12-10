@@ -22,13 +22,13 @@ public class Power extends InfrastructureElement {
     }
 
     // Function to upgrade the infrastructure
-    public void upgradeInfrastructure(InfrastructureElement element) {
-        super.upgradeInfrastructure();
+    public int upgradeInfrastructure(InfrastructureElement element) {
+        return super.upgradeInfrastructure(element);
     }
 
     // Function to destroy the infrastructure
-    public void destroyInfrastructure(InfrastructureElement element) {
-        super.destroyInfrastructure();
+    public String destroyInfrastructure(InfrastructureElement element) {
+        return super.destroyInfrastructure(element);
     }
 
     // Method to expand power supply
