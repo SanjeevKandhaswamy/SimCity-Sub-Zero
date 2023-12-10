@@ -3,7 +3,7 @@ package Infrastructure.Water;
 import Infrastructure.InfrastructureElement;
 import Buildings.Building;
 import Util.Location;
-import Main.Map;
+import Main.GameMap;
 
 public class WaterGenerator extends WaterManagement {
     private static int noOfGenerators = 0;

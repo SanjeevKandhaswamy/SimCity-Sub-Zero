@@ -2,17 +2,16 @@
 package Services;
 
 import Util.Location;
-import Util.Points;
-import Main.Map;
+import Main.GameMap;
 
 public class Park extends Service {
     private int boostPercentage;
     private int greenSpace;
     private int boostgreenSpace;
     private Location location;
-    private Map GameMap;
+    private GameMap GameMap;
 
-    public Park(String serviceID, int level, int greenSpace, Location location, Map gameMap) {
+    public Park(String serviceID, int level, int greenSpace, Location location, GameMap gameMap) {
         super(serviceID, level, "Park");
         this.boostPercentage = 10;   // Default boost percentage
         this.greenSpace = greenSpace;
@@ -54,7 +53,7 @@ public class Park extends Service {
                         park[i][j] = " +";
                     }
                 } else {
-                    park[i][j] = Character.toString((char) grass);
+                    park[i][j] = Character.toString(grass);
                 }
             }
         }

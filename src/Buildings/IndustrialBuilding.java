@@ -1,15 +1,15 @@
 package Buildings;
-import Main.Map;
+import Main.GameMap;
 import Util.Location;
 
 public class IndustrialBuilding extends Building{
     private int income;
-    private Map GameMap;
+    private GameMap GameMap;
     private Location location;
     private String id;
     private int level;
 
-    public IndustrialBuilding(String id, Location location, int level, Map gameMap) {
+    public IndustrialBuilding(String id, Location location, int level, GameMap gameMap) {
       this.id = id;
       this.location = location;
       this.level = level;

@@ -1,13 +1,13 @@
 package Services;
 import Util.Location;
-import Main.Map;
+import Main.GameMap;
 
 
 public class Hospital extends Service {
     private int healthcareCapacity;
     private int boostHealthcareCapacity;
     private Location location;
-    private Map GameMap;
+    private GameMap GameMap;
 
     public Hospital(String serviceID, int level, int healthcareCapacity, int x, int y) {
         super(serviceID, level, "Hospital");

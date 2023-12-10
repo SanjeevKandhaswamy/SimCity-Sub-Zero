@@ -1,12 +1,12 @@
 package Services;
 import Util.Location;
-import Main.Map;
+import Main.GameMap;
 
 public class PoliceDepartment extends Service {
     private int PoliceCoverage;
     private int boostPoliceCoverage;
     private Location location;
-    private Map GameMap;
+    private GameMap GameMap;
 
     public PoliceDepartment(String serviceID, int level, int PoliceCoverage, int x, int y) {
         super(serviceID, level, "PoliceDepartment");

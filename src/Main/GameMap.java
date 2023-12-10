@@ -3,13 +3,13 @@ import Main.GamePanel;
 import Util.Points;
 import java.awt.Point;
 
-public class Map {
+public class GameMap {
 
     private String[][] GameMap;
     private GamePanel panel;
     private Points points; // Added Points class
 
-    public Map(int size) {
+    public GameMap(int size) {
         this.GameMap = new String[size][size];
         initializeMap();
         this.points = new Points();

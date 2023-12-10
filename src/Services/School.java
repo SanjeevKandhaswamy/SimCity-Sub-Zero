@@ -1,6 +1,6 @@
 package Services;
 import Util.Location;
-import Main.Map;
+import Main.GameMap;
 
 public class School extends Service {
     private int capacity;
@@ -8,7 +8,7 @@ public class School extends Service {
     private Location location;
     private int no_students;
     
-    private Map GameMap;
+    private GameMap GameMap;
 
     public School(String serviceID, int level) {
         super(serviceID, level, "School");
@@ -46,43 +46,27 @@ public class School extends Service {
     	else if(status == -1) {
     		return ("Service Already at maximum level!!");
     	}
-    	else if(buildSchool()) {
+    	else {
     		RB.boostHappiness(this.boostPercentage);
     		return ("School Upgraded Successfully :)");
-    	}
-    	else {
-    		return ("Selected area is already occupied by an object!!");
     	}
     }
     
     
     public boolean buildSchool() {
     	
-    	int side = this.capacity / 10;
-    	String[][] school = new String[side][side];
+
+    	String[][] school = new String[1][1];
     	
-    	if(!(GameMap.isAreaAvailable(location.getX(), location.getY(), side, side))) {
+    	if(!(GameMap.isAreaAvailable(location.getX(), location.getY(), 1, 1))) {
     		return false;
     	}
     	
     	int sc = 0x0001F3EB;
     	
-    	for(int i = 0; i <= side - 1; i++) {
-    		for(int j = 0; j <= side - 1; j++) {
-    			school[i][j] = " ";
-    		}
-    	}
-    	
-    	for(int i = 0; i <= side - 1; i++) {
-    		for(int j = 0; j <= side - 1; j++) {
-    			if(i == 0 || j == 0 || i == side - 1 || j == side - 1) {
-    				school[i][j] = " +";
-    			}
-    			else {
-    				school[i][j] = Character.toString(sc);
-    			}
-    		}
-    	}
+
+    	school[0][0] = Character.toString(sc);
+
     	
     	
     	if(GameMap.placeObject(school, location.getX(), location.getY())) {
@@ -96,8 +80,7 @@ public class School extends Service {
     @Override
     public boolean performDestruction() {
     	this.level = 0;
-    	int side = this.capacity / 10;
-    	if(GameMap.destroyObject(side, side, location.getX(), location.getY())) {
+    	if(GameMap.destroyObject(1, 1, location.getX(), location.getY())) {
     		return true;
     	}
     	return false;

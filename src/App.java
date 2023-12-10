@@ -1,18 +1,21 @@
 import java.awt.Point;
-import Buildings.*;
-import Util.*;
+import java.util.HashMap;
+import java.util.Map;
+import Main.GameMap;
 import Main.GamePanel;
-import Main.Map;
 import Services.Park;
+import Util.DialogBox;
+import Util.Location;
+import Util.Points;
 
 public class App {
     public static void main(String[] args) throws Exception {
         int mapSize = 10; // Map size
-        Map cityMap = new Map(mapSize);
+        GameMap cityMap = new GameMap(mapSize);
         cityMap.initializeMap();
         String[][] map = new String[mapSize][mapSize];
         Location l1 = new Location(1, 0);
-        Park p1 = new Park("P1", 1, 25, l1, cityMap);
+        Park p1 = new Park("P", 1, 25, l1, cityMap);
         p1.buildPark();
 
         Points points = cityMap.getPoints(); // Get the Points instance from the cityMap
@@ -26,6 +29,9 @@ public class App {
         // Create a GamePanel with the updated map
         GamePanel gamePanel = new GamePanel(map);
         gamePanel.displayPanel();
+
+        // Map to track building flags
+        Map<Point, Integer> buildingFlags = new HashMap<>();
 
         // Keep checking for the last clicked coordinates in a loop until (0, 0) is clicked
         while (true) {
@@ -41,6 +47,13 @@ public class App {
             // Map the last clicked point to its initial point
             Point initialPoint = points.getPoint(lastClicked);
             System.out.println("Initial Point for last clicked: " + initialPoint);
+
+            // If initialPoint is null and the building flag is not set, show the dialog box
+            if (initialPoint == null && buildingFlags.getOrDefault(lastClicked, 0) == 0 && !(lastClicked.equals(new Point(-1, -1)))) {
+                DialogBox.createAndShowDialog();
+                // Set the building flag to indicate that a building is built at this point
+                buildingFlags.put(lastClicked, 1);
+            }
 
             try {
                 Thread.sleep(1000);
