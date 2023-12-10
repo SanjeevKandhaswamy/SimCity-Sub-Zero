@@ -1,23 +1,23 @@
-# 🌟 SimCity-Sub-Zero: Urban Utopia Simulation Game 🏙️
+# 🚀 SimCity-Sub-Zero Prototype: City-Building Adventure 🌆
 
-Welcome to SimCity-Sub-Zero, where you take the reins of a dynamic city in this engaging Java-based simulation game! As a part of my Semester 3 coursework, I've embarked on a journey to create an immersive urban experience. 🚀
+Welcome to the SimCity-Sub-Zero Prototype, an exciting journey into the mechanics of building a city in this early-stage simulation game! 🌟 As a part of my Semester 3 coursework, I'm delving into the dynamic world of city development using Java.
 
 ## Key Features:
 
-- **City Dynamics:** Witness your city come to life with realistic population growth, economic fluctuations, and dynamic infrastructure development.
-- **Resource Management:** Master the art of resource allocation, balancing the needs of your citizens with the city's growth aspirations.
-- **Interactive Gameplay:** Interact with the simulated inhabitants, address their concerns, and make impactful decisions to shape the destiny of your virtual metropolis.
-- **Innovative Codebase:** Dive into the intricacies of Java programming as you explore the well-structured and modular codebase behind SimCity-Sub0.
+- **City Evolution:** Witness the growth of your city with basic population dynamics, economic rudiments, and preliminary infrastructure development.
+- **Resource Experimentation:** Delve into the foundational aspects of resource allocation, trying to strike a balance between citizen needs and the city's expansion aspirations.
+- **Interactive Elements:** Engage with simulated inhabitants, address initial concerns, and make rudimentary decisions to steer the trajectory of your budding metropolis.
+- **Code Exploration:** Dive into the early stages of Java programming as you explore a developing and modular codebase behind the SimCity-Sub-Zero Prototype.
 
-## Why SimCity-Sub0?
+## Why SimCity-Sub-Zero Prototype?
 
-- 🏗️ **Build Your Dream City:** From skyscrapers to parks, mould your cityscape into the vision of urban utopia you've always imagined.
-- 📈 **Learn While Playing:** SimCity-Sub-Zero is not just a game; it's an educational experience, providing insights into Java development, software design, and game mechanics.
-- 🌐 **Open Source Collaboration:** Contribute to the growth of SimCity-Sub-Zero by forking, suggesting improvements, or creating your own custom features. Let's build this city together!
+- 🌇 **Shape Your Mini-City:** Experiment with constructing your city, starting from basic structures to envisioning a modest urban landscape.
+- 🧠 **Learn Through Play:** SimCity-Sub-Zero Prototype is not just a game; it's a learning experience, offering insights into Java development, software design, and the fundamentals of game mechanics.
+- 🤝 **Early Collaboration:** Contribute to the growth of the SimCity-Sub-Zero Prototype by exploring, suggesting improvements, or even crafting your own early features. Let's lay the foundation of this city together!
 
 ## Get Started:
 
-1. Clone the repository: `git clone https://github.com/YourUsername/SimCity-Sub-Zero.git`
-2. Explore the codebase, experiment with game mechanics, and contribute to the evolution of SimCity-Sub0.
+1. Clone the evolving prototype: `git clone https://github.com/YourUsername/SimCity-Sub-Zero-Prototype.git`
+2. Dive into the codebase, experiment with emerging game mechanics, and be a part of shaping the SimCity-Sub-Zero Prototype.
 
-Join the simulation revolution and let's build the ultimate city together! 🌆✨
+Embark on this simulation adventure, and let's lay the groundwork for the ultimate city-building experience! 🌃🛠️
