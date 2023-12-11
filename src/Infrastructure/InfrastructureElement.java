@@ -1,6 +1,4 @@
 package Infrastructure;
-import Economy.*;
-
 import Economy.Capital;
 
 public class InfrastructureElement {
@@ -71,6 +69,11 @@ public class InfrastructureElement {
                 return ("Infrastructure Not Destroyed!! Retry :)");
             }
         }
+    }
+
+    public boolean performDestruction() {
+        this.level = 0;
+        return true;
     }
 
 }

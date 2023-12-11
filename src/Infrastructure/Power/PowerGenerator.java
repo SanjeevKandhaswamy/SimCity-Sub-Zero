@@ -1,13 +1,13 @@
 package Infrastructure.Power;
 import Util.Location;
-import Main.Map;
+import Main.GameMap;
 
 
 public class PowerGenerator extends Power {
     private static int noOfGenerators = 0;
     private int supply; // in kW
     private Location location;
-    private Map GameMap;
+    private GameMap GameMap;
     private int size;
 
     public PowerGenerator(String infraID, int level, int demand,int x,int y) {
@@ -64,6 +64,15 @@ public class PowerGenerator extends Power {
         }
         return false;
 
+    }
+
+    @Override
+    public boolean performDestruction() {
+        int side = (int) (this.size);
+        if (GameMap.destroyObject( side, side, location.getX(), location.getY())) {
+            return true;
+        }
+        return false;
     }
 
 //    // Method to check if the power supply is sufficient for a building
