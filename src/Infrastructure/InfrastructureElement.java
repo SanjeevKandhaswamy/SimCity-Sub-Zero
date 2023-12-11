@@ -1,4 +1,5 @@
 package Infrastructure;
+import Economy.*;
 
 import Economy.Capital;
 
@@ -36,7 +37,8 @@ public class InfrastructureElement {
     }
 
     // Function to upgrade the infrastructure
-    public int upgradeInfrastructure(InfrastructureElement element) {
+
+    public int upgradeInfrastructure() {
         // This function will be overridden in sub-classes
         if(this.level < 5) {
             int upgradeCost = level * 1000;
@@ -53,7 +55,8 @@ public class InfrastructureElement {
     }
 
     // Function to destroy the infrastructure
-    public String destroyInfrastructure(InfrastructureElement element) {
+
+    public String destroyInfrastructure() {
         // This function will be overridden in sub-classes
         int destructionCost = level * 1000;
         if(capital.getCapital() - destructionCost < 0) {

@@ -1,6 +1,5 @@
 package Infrastructure.Power;
 import Infrastructure.InfrastructureElement;
-import Economy.Capital;
 
 public class Power extends InfrastructureElement {
     private int demand = 40000; // Default customizable value
