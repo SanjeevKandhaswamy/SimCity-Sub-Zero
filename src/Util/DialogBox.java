@@ -35,7 +35,8 @@ public class DialogBox {
                 options[0]
         );
 
-        return handleUserChoice(choice);
+        handleUserChoice(choice);
+        return choice;
     }
 
     private static int handleUserChoice(int choice) {
@@ -49,8 +50,9 @@ public class DialogBox {
             case 2:
                 // User selected Industrial Building
                 return handleIndustrialBuildingConfirmation();
+            // Add cases for other building types if needed
             default:
-            	return -1;
+                return -1; // Default value for invalid choice
         }
     }
 

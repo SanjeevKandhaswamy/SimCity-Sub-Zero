@@ -8,11 +8,12 @@ public class PoliceDepartment extends Service {
     private Location location;
     private GameMap GameMap;
 
-    public PoliceDepartment(String serviceID, int level, int PoliceCoverage, int x, int y) {
+    public PoliceDepartment(String serviceID, int level, int PoliceCoverage, int x, int y, GameMap gameMap) {
         super(serviceID, level, "PoliceDepartment");
         this.PoliceCoverage = PoliceCoverage;
         this.boostPoliceCoverage = 5; // Default boost value for Police coverage
         this.location = new Location(x, y);
+        this.GameMap = gameMap;
     }
 
     // Set location coordinates of the Police department
@@ -23,7 +24,7 @@ public class PoliceDepartment extends Service {
     @Override
     public String performUpgrade() {
         this.PoliceCoverage += boostPoliceCoverage; // Customizable boost value for Police coverage
-        int status = super.upgradeService();
+        int status = upgradeService();
         if (status == 0) {
             return ("Not Enough Capital Balance!!");
         } else if (status == -1) {
@@ -34,6 +35,25 @@ public class PoliceDepartment extends Service {
             return ("Selected area is already occupied by an object!!");
         }
     }
+    
+    
+    @Override
+    public int upgradeService() {
+        if(this.level < 5) {
+        	int upgradeCost = level * 1000;
+        	if(capital.getCapital() - upgradeCost < 0) {
+        		return 0;
+        	}
+        	capital.setCapital(capital.getCapital() - upgradeCost);
+        	this.level++;
+        	return 1;
+        }
+        else {
+        	return -1;
+        }
+    }
+    
+   
 
     public boolean buildPoliceDepartment() {
         int side = (int) Math.sqrt(this.PoliceCoverage); // Calculating the length of the side of the Police department
@@ -71,7 +91,26 @@ public class PoliceDepartment extends Service {
             return false;
         }
     }
+    
+    
+    @Override
+    public String destroyService() {
+    	int destructionCost = level * 1000;
+    	if(capital.getCapital() - destructionCost < 0) {
+    		return ("Not Enough Capital Balance");
+    	}
+    	else {
+    		capital.setCapital(capital.getCapital() - destructionCost);
+    		if(performDestruction()) {
+    			return("Service Destroyed");
+    		}
+    		else {
+    			return ("Service Not Destroyed!! Retry :)");
+    		}
+    	}
+    }
 
+    
     @Override
     public boolean performDestruction() {
         this.level = 0;

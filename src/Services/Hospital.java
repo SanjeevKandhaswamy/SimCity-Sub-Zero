@@ -25,18 +25,30 @@ public class Hospital extends Service {
     public String performUpgrade() {
 
         this.healthcareCapacity += boostHealthcareCapacity; // Customizable boost value for health care capacity
-        int status = super.upgradeService();
+        int status = upgradeService();
         if(status == 0) {
         	return ("Not Enough Capital Balance!!");
         }
         else if(status == -1){
         	return ("Service Already at maximum level");
         }
-        else if(buildHospital()) {
-        	return ("Hospital Upgraded :)");// Updating the hospital after health care capacity is updated
+        return ("Hospital Upgraded :)");
+    }
+    
+    
+    @Override
+    public int upgradeService() {
+        if(this.level < 5) {
+        	int upgradeCost = level * 1000;
+        	if(capital.getCapital() - upgradeCost < 0) {
+        		return 0;
+        	}
+        	capital.setCapital(capital.getCapital() - upgradeCost);
+        	this.level++;
+        	return 1;
         }
         else {
-        	return ("Selected area is already occupied by an object!!");
+        	return -1;
         }
     }
     
@@ -80,6 +92,25 @@ public class Hospital extends Service {
         	return false;
         }
     }
+    
+    
+    @Override
+    public String destroyService() {
+    	int destructionCost = level * 1000;
+    	if(capital.getCapital() - destructionCost < 0) {
+    		return ("Not Enough Capital Balance");
+    	}
+    	else {
+    		capital.setCapital(capital.getCapital() - destructionCost);
+    		if(performDestruction()) {
+    			return("Service Destroyed");
+    		}
+    		else {
+    			return ("Service Not Destroyed!! Retry :)");
+    		}
+    	}
+    }
+    
     
 
     @Override

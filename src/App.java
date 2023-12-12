@@ -7,20 +7,21 @@ import Services.Park;
 import Util.DialogBox;
 import Util.Location;
 import Util.Points;
+import Buildings.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        int mapSize = 10; // Map size
+        int mapSize = 15; // Map size
         GameMap cityMap = new GameMap(mapSize);
         cityMap.initializeMap();
         String[][] map = new String[mapSize][mapSize];
-        Location l1 = new Location(1, 0);
-        Park p1 = new Park("P", 1, 25, l1, cityMap);
+        Location selectedPoint = new Location(1, 0);
+        Park p1 = new Park("P", 1, 25, selectedPoint, cityMap);
         p1.buildPark();
 
         Points points = cityMap.getPoints(); // Get the Points instance from the cityMap
-        Point startingPoint = points.getPoint(new Point(2, 2));
-        System.out.println("Starting Point: " + startingPoint);
+        //Point startingPoint = points.getPoint(new Point(2, 2));
+        //System.out.println("Starting Point: " + startingPoint);
 
         // Update the map based on changes made in the buildPark method
         map = cityMap.getMap();
@@ -50,9 +51,25 @@ public class App {
 
             // If initialPoint is null and the building flag is not set, show the dialog box
             if (initialPoint == null && buildingFlags.getOrDefault(lastClicked, 0) == 0 && !(lastClicked.equals(new Point(-1, -1)))) {
-                DialogBox.createAndShowDialog();
-                // Set the building flag to indicate that a building is built at this point
+                int userChoice = DialogBox.createAndShowDialog();
+                Location selectedLocation = new Location((int) lastClicked.getX(), (int) lastClicked.getY());
+                System.out.println(lastClicked.getX());
+                System.out.println(lastClicked.getY());
+                System.out.println(selectedLocation.getX());
+                System.out.println(selectedLocation.getY());
                 buildingFlags.put(lastClicked, 1);
+                if(userChoice == 0) {
+                	ResidentialBuilding RB = new ResidentialBuilding("R", selectedLocation, 1, cityMap);
+                	RB.buildBuilding();	
+                	
+                    map = cityMap.getMap();
+                    cityMap.DisplayMap();
+
+                    // Create a GamePanel with the updated map
+                    gamePanel.updatePanel(map);
+                    gamePanel.displayPanel();
+                }
+
             }
 
             try {

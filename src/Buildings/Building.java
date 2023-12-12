@@ -12,8 +12,8 @@ public abstract class Building {
     public Capital capital;
 
     // Overridden by the sub class functions.
-    public Boolean buildBuilding(){
-		return null;
+	public Boolean buildBuilding(){
+		return (Boolean) null;
     }
 
     public int upgradeCost(int level){
