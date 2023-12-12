@@ -68,14 +68,6 @@ public class DialogBox {
                 JOptionPane.YES_NO_OPTION
         );
 
-        // Process the user's confirmation
-        if (confirmChoice == JOptionPane.YES_OPTION) {
-            System.out.println("Building: Residential Building - Confirmed");
-            // Now you can proceed with building the residential building
-        } else {
-            System.out.println("Building: Residential Building - Not Confirmed");
-            // Handle the case where the user didn't confirm
-        }
         return confirmChoice;
     }
 

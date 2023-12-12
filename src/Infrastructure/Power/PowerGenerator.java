@@ -10,9 +10,9 @@ public class PowerGenerator extends Power {
     private GameMap GameMap;
     private int size;
 
-    public PowerGenerator(String infraID, int level, int demand,int x,int y) {
+    public PowerGenerator(String infraID, int level, int demand,Location location) {
         super(infraID, level, demand);
-        this.location.setLocation(x,y); //Building at that certain location
+        this.location = location; //Building at that certain location
         this.supply = calculateSupply(demand); //Supply of the power generator
         this.size = calculateSize(this.supply); //DEFAULT_SIZE of Power House
         PowerGenerator.noOfGenerators++;
