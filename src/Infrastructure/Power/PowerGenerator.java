@@ -1,115 +1,142 @@
-package Infrastructure.Water;
-
-import Infrastructure.InfrastructureElement;
-import Buildings.Building;
+package Infrastructure.Power;
 import Util.Location;
 import Main.GameMap;
 
-public class WaterGenerator extends WaterManagement {
-    private static int noOfGenerators = 0;
-    private int waterSupply; // in gallons per day
-    private Location location;
-    private Map gameMap;
-    private int size;
-    private boolean advancedPurification;
 
-    public WaterGenerator(String infraID, int level, int demand, int waterSupply, int x, int y, int size) {
+public class PowerGenerator extends Power {
+    private static int noOfGenerators = 0;
+    private int supply; // in kW
+    private Location location;
+    private GameMap GameMap;
+    private int size;
+
+    public PowerGenerator(String infraID, int level, int demand,int x,int y) {
         super(infraID, level, demand);
-        this.location = new Location(x, y);
-        this.waterSupply = (waterSupply > 0) ? waterSupply : 10000; // Default water supply
-        this.size = (size > 0) ? size : 50; // Default size of Water Generator
-        this.advancedPurification = false;
-        WaterGenerator.noOfGenerators++;
+        this.location.setLocation(x,y); //Building at that certain location
+        this.supply = calculateSupply(demand); //Supply of the power generator
+        this.size = calculateSize(this.supply); //DEFAULT_SIZE of Power House
+        PowerGenerator.noOfGenerators++;
+    }
+
+    public int calculateSupply(int demand) {
+        int supply = (int) (demand * 1.2)+50; //Extra 50kW
+        return supply;
+    }
+
+    public int calculateSize(int supply) {
+        int size = (int) Math.ceil(supply / 50);
+        return size;
     }
 
     public boolean buildGenerator() {
-        int side = this.size; // default
-        String[][] waterGeneratorStructure = new String[side][side];
 
-        // Checks whether the area is available
-        if (!(gameMap.isAreaAvailable(location.getX(), location.getY(), side, side))) {
+        int side = (int) (this.size); // default
+        String[][] powerHouse = new String[side][side]; // Declaring new powerHouse using size
+
+        // Checks whether area is available
+        if(!(GameMap.isAreaAvailable(location.getX(),location.getY(), side, side))) {
             return false;
         }
 
-        for (int i = 0; i < waterGeneratorStructure.length; i++) {
-            for (int j = 0; j < waterGeneratorStructure[i].length; j++) {
-                waterGeneratorStructure[i][j] = " ";
+
+        for(int i = 0; i <= powerHouse.length - 1; i++) {
+            for(int j = 0; j <= powerHouse[i].length - 1; j++) {
+                powerHouse[i][j] = " ";
             }
         }
 
-        // Filling the water generator borders with '+' and the inside area with 'W'.
-        for (int i = 0; i < side; i++) {
-            for (int j = 0; j < side; j++) {
+        int electric = 0x00002301;
+        // Filling the powerHouse borders with '+' and the inside area with 'P'.
+        for (int i = 0; i <= side - 1; i++) {
+            for (int j = 0; j <= side - 1; j++) {
                 if (i == 0 || i == side - 1 || j == 0 || j == side - 1) {
-                    if (i < waterGeneratorStructure.length && j < waterGeneratorStructure[i].length) {
-                        waterGeneratorStructure[i][j] = " +";
+                    if (i < powerHouse.length && j < powerHouse[i].length) {
+                        powerHouse[i][j] = " +";
                     }
                 } else {
-                    waterGeneratorStructure[i][j] = "W";
+                    powerHouse[i][j] = Character.toString(electric);
                 }
             }
         }
 
-        if (gameMap.placeObject(waterGeneratorStructure, location.getX(), location.getY())) {
+        if(GameMap.placeObject(powerHouse,location.getX(),location.getY())) {
+            return true;
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean performDestruction() {
+        int side = (int) (this.size);
+        if (GameMap.destroyObject( side, side, location.getX(), location.getY())) {
             return true;
         }
         return false;
     }
 
-    // Function to simulate water consumption by buildings
-    public void simulateWaterConsumption(Building building, int days) {
-        int waterDemand = calculateWaterDemand(building) * days;
-        if (waterSupply >= waterDemand) {
-            waterSupply -= waterDemand;
-            System.out.println(building.getType() + " consumed " + waterDemand + " gallons of water.");
-        } else {
-            System.out.println("Insufficient water supply. " + building.getType() + " could not get enough water.");
-        }
-    }
+//    // Method to check if the power supply is sufficient for a building
+//    public boolean isSupplySufficient(Building building) {
+//        if ("Power".equals(building.getType())) {
+//            int demand = getPowerDemand(building); // Assume a method to get demand from the building
+//            return supply >= demand;
+//        }
+//        return false;
+//    }
 
-    // Function to perform regular maintenance
-    public void performMaintenance() {
-        System.out.println("Performing regular maintenance on the Water Generator.");
-        // Add maintenance logic as needed
-    }
+
 
     // Override displayInfo to include generator-specific information
     @Override
     public void displayInfo() {
         super.displayInfo();
-        System.out.println("Total Water Supply Storage: " + this.waterSupply + " gallons per day");
-        System.out.println("Advanced Purification: " + (advancedPurification ? "Enabled" : "Disabled"));
+        System.out.println("Total Power Supply Storage: " + this.supply + " MW");
     }
 
-    // Function to enable advanced water purification
-    public void enableAdvancedPurification() {
-        this.advancedPurification = true;
-        System.out.println("Advanced water purification enabled.");
+    // Function to update power supply
+    public void updateSupply(int newSupply) {
+        this.supply = newSupply;
+        System.out.println("Power Supply Storage Updated to: " + newSupply + " MW");
     }
 
-    // Function to upgrade water generator
-    public void upgradeGenerator(int size, int waterSupply) {
-        this.size += (size > 0) ? size : 20; // Increase size by default of 20
-        this.waterSupply += (waterSupply > 0) ? waterSupply : 4000; // Increase water supply by default of 4000
+    // Function to build power supply.
+    public String upgradeGenerator(int supply) {
+        this.supply += supply;
+        this.size = calculateSize(supply);
         int status = super.upgradeInfrastructure();
-        if (status == 0) {
-            System.out.println("Not Enough Capital Balance!!");
-        } else if (status == -1) {
-            System.out.println("Water Infrastructure is already at maximum level..");
-        } else if (buildGenerator()) {
-            System.out.println("Water Generator Upgraded :)");
-        } else {
-            System.out.println("Selected area is already occupied!!");
+        if(status == 0) {
+            return ("Not Enough Capital Balance!!");
+        }
+        else if(status == -1) {
+            return ("Power Infrastructure is already at maximum level..");
+        }
+        else if(buildGenerator()) {
+            return ("Power House Upgraded :)");
+        }
+        else {
+            return ("Selected area is already occupied!!");
         }
     }
 
-    // Function to destroy water generator
-    public void destroyGenerator() {
-        int side = this.size; // Default
-        if (gameMap.destroyObject(side, side, location.getX(), location.getY())) {
-            System.out.println("Water Generator Destroyed :(");
-        } else {
-            System.out.println("Unable to destroy water generator. Area may be occupied.");
+    // Function to destroy power supply
+    public boolean destroyGenerator() {
+        int side = (int) (this.size); // default
+        if(GameMap.destroyObject(side, side, location.getX(),location.getY())) {
+            return true;
+        }
+        return false;
+
+    }
+
+    @Override
+    public void expandPowerSupply(int expandSupply) {
+        if(this.supply>super.getDemand()+expandSupply){
+            super.expandPowerSupply(expandSupply);
+        }else{
+            this.upgradeGenerator(expandSupply);
+            this.expandPowerSupply(expandSupply);
         }
     }
+
+
 }
