@@ -19,6 +19,7 @@ public class GamePanel {
     }
 
     private void fillPanel() {
+    	panel.removeAll();
         panel.setLayout(new GridLayout(mapArray.length, mapArray[0].length));
 
         for (int i = 0; i < mapArray.length; i++) {
@@ -45,6 +46,12 @@ public class GamePanel {
         mouseTracker();
     }
 
+    // Method to update the panel with a new mapArray
+    public void updatePanel(String[][] newMapArray) {
+        this.mapArray = newMapArray;
+        fillPanel();
+    }
+
     private void mouseTracker() {
         panel.addMouseListener(new MouseAdapter() {
             @Override
@@ -54,8 +61,8 @@ public class GamePanel {
                 int cellHeight = frame.getContentPane().getHeight() / mapArray.length;
 
                 // Calculate the coordinates of the clicked cell
-                int x = (int) (e.getX() / cellWidth);
-                int y = (int) (e.getY() / cellHeight);
+                int x = (int) (e.getY() / cellWidth);
+                int y = (int) (e.getX() / cellHeight);
 
                 // Update the last clicked coordinates
                 lastClickedCoordinates.setLocation(x, y);
