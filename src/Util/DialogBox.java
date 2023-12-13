@@ -50,6 +50,9 @@ public class DialogBox {
             case 2:
                 // User selected Industrial Building
                 return handleIndustrialBuildingConfirmation();
+            case 3:
+                // User selected Park
+                return handleParkBuildingConfirmation();
             // Add cases for other building types if needed
             default:
                 return -1; // Default value for invalid choice
@@ -68,14 +71,6 @@ public class DialogBox {
                 JOptionPane.YES_NO_OPTION
         );
 
-        // Process the user's confirmation
-        if (confirmChoice == JOptionPane.YES_OPTION) {
-            System.out.println("Building: Residential Building - Confirmed");
-            // Now you can proceed with building the residential building
-        } else {
-            System.out.println("Building: Residential Building - Not Confirmed");
-            // Handle the case where the user didn't confirm
-        }
         return confirmChoice;
     }
 
@@ -91,18 +86,9 @@ public class DialogBox {
                 JOptionPane.YES_NO_OPTION
         );
 
-        // Process the user's confirmation
-        if (confirmChoice == JOptionPane.YES_OPTION) {
-            System.out.println("Building: Commercial Building - Confirmed");
-            // Now you can proceed with building the commercial building
-        } else {
-            System.out.println("Building: Commercial Building - Not Confirmed");
-            // Handle the case where the user didn't confirm
-        }
         return confirmChoice;
     }
-    
-    
+
     private static int handleIndustrialBuildingConfirmation() {
         // Industrial Building cost
         int buildCost = 12000;
@@ -115,16 +101,27 @@ public class DialogBox {
                 JOptionPane.YES_NO_OPTION
         );
 
-        // Process the user's confirmation
-        if (confirmChoice == JOptionPane.YES_OPTION) {
-            System.out.println("Building: Industrial Building - Confirmed");
-            // Now you can proceed with building the industrial building
-        } else {
-            System.out.println("Building: Industrial Building - Not Confirmed");
-            // Handle the case where the user didn't confirm
-        }
         return confirmChoice;
     }
 
-    // ... (similar methods for other building types)
+    private static int handleParkBuildingConfirmation() {
+        // Ask the user to input the green space value
+        String input = JOptionPane.showInputDialog(
+                null,
+                "Enter the Green Space value for the Park:",
+                "Park Building",
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        // Convert the input to an integer
+        try {
+            int greenSpace = Integer.parseInt(input);
+            // Return the green space value
+            return greenSpace;
+        } catch (NumberFormatException e) {
+            // Handle the case where the input is not a valid integer
+            System.out.println("Invalid input for Green Space. Defaulting to 0.");
+            return 0;
+        }
+    }
 }

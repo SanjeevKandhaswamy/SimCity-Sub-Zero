@@ -1,31 +1,25 @@
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
-import Main.GameMap;
-import Main.GamePanel;
-import Services.Park;
-import Util.DialogBox;
-import Util.Location;
-import Util.Points;
+// Importing all the packages for creating objects
+import Main.*;
+import Services.*;
+import Util.*;
 import Buildings.*;
+import Infrastructure.*;
+import Infrastructure.Power.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        int mapSize = 15; // Map size
+        int mapSize = 15; // Customizable Map Size for users
+        // Instantiating Game map for the city 
         GameMap cityMap = new GameMap(mapSize);
-        cityMap.initializeMap();
+        cityMap.initializeMap(); 
         String[][] map = new String[mapSize][mapSize];
-        Location selectedPoint = new Location(1, 0);
-        Park p1 = new Park("P", 1, 25, selectedPoint, cityMap);
-        p1.buildPark();
 
-        Points points = cityMap.getPoints(); // Get the Points instance from the cityMap
-        //Point startingPoint = points.getPoint(new Point(2, 2));
-        //System.out.println("Starting Point: " + startingPoint);
+        // Get the Points instance from the cityMap
+        Points points = cityMap.getPoints(); 
 
-        // Update the map based on changes made in the buildPark method
-        map = cityMap.getMap();
-        cityMap.DisplayMap();
 
         // Create a GamePanel with the updated map
         GamePanel gamePanel = new GamePanel(map);
@@ -33,11 +27,11 @@ public class App {
 
         // Map to track building flags
         Map<Point, Integer> buildingFlags = new HashMap<>();
+        
 
-        // Keep checking for the last clicked coordinates in a loop until (0, 0) is clicked
+        // Keep checking for the last clicked coordinates in a loop until (14, 14) is clicked
         while (true) {
             Point lastClicked = gamePanel.getLastClickedCoordinates();
-            System.out.println("Last clicked coordinates: " + lastClicked);
 
             // Check if the last clicked coordinates are (9, 9)
             if (lastClicked.equals(new Point(9, 9))) {
@@ -45,30 +39,50 @@ public class App {
                 break;
             }
 
-            // Map the last clicked point to its initial point
+            // Map the last clicked point to its respective mapped initial point
             Point initialPoint = points.getPoint(lastClicked);
-            System.out.println("Initial Point for last clicked: " + initialPoint);
 
-            // If initialPoint is null and the building flag is not set, show the dialog box
+            // If initialPoint is null and the building flag is not set then the point is free of buildings. Calling a dialog box in that case
             if (initialPoint == null && buildingFlags.getOrDefault(lastClicked, 0) == 0 && !(lastClicked.equals(new Point(-1, -1)))) {
+            	
+            	// Getting the user input choice from the dialog box
                 int userChoice = DialogBox.createAndShowDialog();
                 Location selectedLocation = new Location((int) lastClicked.getX(), (int) lastClicked.getY());
-                System.out.println(lastClicked.getX());
-                System.out.println(lastClicked.getY());
-                System.out.println(selectedLocation.getX());
-                System.out.println(selectedLocation.getY());
+                
+                // Maintaining a Hash map data structure for storing which points has been utilized for building.
                 buildingFlags.put(lastClicked, 1);
+                
+                // Handling userChoice to create respective buildings objects and calling Build function
                 if(userChoice == 0) {
                 	ResidentialBuilding RB = new ResidentialBuilding("R", selectedLocation, 1, cityMap);
                 	RB.buildBuilding();	
-                	
-                    map = cityMap.getMap();
-                    cityMap.DisplayMap();
-
-                    // Create a GamePanel with the updated map
-                    gamePanel.updatePanel(map);
-                    gamePanel.displayPanel();
                 }
+                else if(userChoice == 1) {
+                	CommercialBuilding CB = new CommercialBuilding("C", selectedLocation, 1, cityMap);
+                	CB.buildBuilding();
+                }
+                else if(userChoice == 2) {
+                	IndustrialBuilding IB = new IndustrialBuilding("I", selectedLocation, 1, cityMap);
+                	IB.buildBuilding();
+                }
+                else if(userChoice == 3) {
+                	Park P = new Park("P", 1, 25, selectedLocation, cityMap);
+                	P.buildPark();
+                }
+                else if(userChoice == 4) {
+                	PowerGenerator PG = new PowerGenerator("PG", 1, 500, selectedLocation);
+                	PG.buildGenerator();
+                }
+                else if(userChoice == 5) {
+                	School S = new School("Sc", 1, selectedLocation, cityMap);
+                	S.buildSchool();
+                }
+                map = cityMap.getMap();
+                cityMap.DisplayMap();
+
+                // Create a GamePanel with the updated map
+                gamePanel.updatePanel(map);
+                gamePanel.displayPanel();
 
             }
 
