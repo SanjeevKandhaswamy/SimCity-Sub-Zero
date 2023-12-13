@@ -3,19 +3,21 @@ import Util.Location;
 import Main.GameMap;
 
 public class School extends Service {
+	// Attributes
     private int capacity;
     private int boostPercentage;
     private Location location;
     private int no_students;
-    
     private GameMap GameMap;
 
     // Constructor
-    public School(String serviceID, int level) {
+    public School(String serviceID, int level, Location location, GameMap gameMap) {
         super(serviceID, level, "School");
         this.capacity = 100; // Default capacity
         this.boostPercentage = 50; // Default boost percentage
         this.no_students = 75; // Default students.
+        this.location = location;
+        this.GameMap = gameMap;
     }
     
     

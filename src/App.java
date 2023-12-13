@@ -74,7 +74,7 @@ public class App {
                 	PG.buildGenerator();
                 }
                 else if(userChoice == 5) {
-                	School S = new School("Sc", 1);
+                	School S = new School("Sc", 1, selectedLocation, cityMap);
                 	S.buildSchool();
                 }
                 map = cityMap.getMap();
